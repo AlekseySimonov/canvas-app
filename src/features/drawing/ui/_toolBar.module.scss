@@ -1,0 +1,24 @@
+.toolbar{
+	padding-inline: 20px;
+	display: flex;
+	box-shadow: var(--shadow);
+	margin-bottom: 30px;
+	gap: 30px;
+	padding-block: 10px;
+	&_draw{
+		cursor: crosshair;
+	}
+	label{
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		justify-content: flex-start;
+		h1{
+			color: var(--info-color);
+		}
+		div{
+			display: flex;
+			gap: 5px;
+		}
+	}
+}

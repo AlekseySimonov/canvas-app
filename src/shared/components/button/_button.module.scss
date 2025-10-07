@@ -1,0 +1,16 @@
+.button{
+	background: var(--background-color);
+	border: 1px solid var(--info-color);
+	border-radius: var(--border-radius);
+	padding: 10px 14px;
+	display: flex;
+	cursor: pointer;
+	&:hover{
+		border-color: var(--primary-light-color);
+	}
+	&.active{
+		background: var(--primary-color);
+		color: var(--background-color);
+		border-color: var(--primary-color);
+	}
+}

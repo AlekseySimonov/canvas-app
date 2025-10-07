@@ -1,0 +1,22 @@
+.slider {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	input {
+		-webkit-appearance: none;
+		height: 6px;
+		border-radius: 3px;
+		background: var(--info-color);
+		outline: none;
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: var(--primary-color);
+			cursor: pointer;
+			transition: var(--transition);
+		}
+	}
+}

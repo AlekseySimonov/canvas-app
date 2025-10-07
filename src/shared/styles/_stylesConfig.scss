@@ -1,0 +1,32 @@
+@use './reset';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+	font-size: var(--text-m);
+	line-height: 1.5;
+	font-family: "Noto Sans", sans-serif;
+	font-optical-sizing: auto;
+	color: var(--secondary-color);
+	background-color: var(--background-color);
+}
+
+h1 {
+	font-size: var(--text-m);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+h2 {
+	font-size: var(--text-xl);
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+h3 {
+	font-size: var(--text-l);
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+p {
+	font-size: var(--text-m);
+}
