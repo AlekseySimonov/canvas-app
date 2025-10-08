@@ -1,7 +1,8 @@
 import { Slider } from "@/shared/components/slider";
-import type { DrawingOptions, ToolType } from "../model/types";
+import type { DrawingOptions} from "../model/types";
 import styles from "./_toolBar.module.scss";
 import { Button } from "@/shared/components/button";
+import { tools, type ToolType } from "../model/constants";
 
 interface ToolbarProps {
 	options: DrawingOptions;
@@ -19,35 +20,33 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
 	return (
 		<div className={styles.toolbar}>
-			<label>
+			<section>
 				<h1>TOOLS</h1>
 				<div>
+					{tools.map((tool) => (
 						<Button
-							title="pencil"
-							active={options.tool === "pencil"}
-							onClick={() => onToolChange("pencil")}
+							key={tool}
+							title={tool}
+							active={options.tool === tool}
+							onClick={() => onToolChange(tool)}
 						/>
-						<Button
-							title='rubber'
-							active={options.tool === 'rubber'}
-							onClick={() => onToolChange('rubber')}
-						/>
+					))}
 				</div>
-			</label>
+			</section>
 
-			<label>
+			<section>
 				<h1>COLOR</h1>
 				<input
 					type="color"
 					value={options.color}
 					onChange={(event) => onColorChange(event.target.value)}
 				/>
-			</label>
+			</section>
 
-			<label>
+			<section>
 				<h1>WIDTH</h1>
 				<Slider size={options.size} onSizeChange={onSizeChange} />
-			</label>
+			</section>
 		</div>
 	);
 };
