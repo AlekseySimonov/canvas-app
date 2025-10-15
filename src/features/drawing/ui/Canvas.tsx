@@ -1,47 +1,21 @@
-import { useEffect, useRef } from "react";
-import { drawTool } from "../model/drawTool";
+import { useRef } from "react";
 import type { DrawingOptions } from "../model/types";
 import styles from "./_canvas.module.scss"
+import { useCanvasDraw } from "../model/useCanvasDraw";
+import { useCanvasResize } from "../model/useCanvasResize";
 
 export const Canvas: React.FC<{ options: DrawingOptions }> = ({ options }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		const canvas = canvasRef.current;
-		if (!canvas) return console.error("Canvas error");
-
-		const context = canvas.getContext("2d");
-		if (!context) return console.error("Context error");
-
-		context.moveTo(0, 0);
-
-		let mouseClick: ((e: MouseEvent) => void) | null = null;
-
-		switch (options.tool) {
-			case "pencil":
-				mouseClick = () => drawTool(canvas, context, options);
-				break;
-			case "rubber":
-				mouseClick = () => drawTool(canvas, context, { ...options, color: '#ffffff' });
-				break;
-			default:
-				mouseClick = () => drawTool(canvas, context, options);
-		}
-
-		canvas.addEventListener("mousedown", mouseClick);
-
-		return () => {
-			canvas.removeEventListener("mousedown", mouseClick);
-		};
-
-	}, [options]);
+	useCanvasDraw(canvasRef, options);
+	const size = useCanvasResize(canvasRef, containerRef);
 
 	return (
-		<div className={styles.canvas}>
+		<div className={styles.canvas} ref={containerRef}>
 			<canvas ref={canvasRef}
-				width={'1000px'}
-				height={'400px'}
-				style={{cursor:"crosshair"}}
+				width={size.width}
+				height={size.height}
 				className={styles.canvas_draw}
 			>
 				Your browser does not support canvas

@@ -1,5 +1,3 @@
-// export type ToolType = "pencil" | "rubber" | "line" | "rectangle" | "circle";
-
 import type { ToolType } from "./constants";
 
 export interface DrawingOptions {
@@ -7,3 +5,10 @@ export interface DrawingOptions {
 	size: number;
 	tool: ToolType;
 }
+
+export type DrawFn = (
+	context: CanvasRenderingContext2D,
+	x: number,
+	y: number,
+	options: DrawingOptions
+) => void;
