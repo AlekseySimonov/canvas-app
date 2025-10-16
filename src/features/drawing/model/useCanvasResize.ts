@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 export const useCanvasResize = (
 	canvasRef: React.RefObject<HTMLCanvasElement | null>,
 	containerRef: React.RefObject<HTMLDivElement | null>
 ) => {
-	const [size, setSize] = useState({ width: 1000, height: 1000 });
 
 	const resizeHandler = useCallback(() => {
 		const canvas = canvasRef.current;
@@ -14,22 +13,16 @@ export const useCanvasResize = (
 		const context = canvas.getContext("2d");
 		if (!context) return;
 
-		const inMemCanvas = canvasRef.current;
-		if (!inMemCanvas) return;
-		const inMemCtx = inMemCanvas.getContext("2d");
-		if (!inMemCtx) return;
-
-		inMemCanvas.width = canvas.width;
-		inMemCanvas.height = canvas.height;
-		inMemCtx.drawImage(canvas, 0, 0);
+		const ratio = window.devicePixelRatio || 1
+		const prevImage = context.getImageData(0, 0, canvas.width, canvas.height);
 
 		const { clientWidth, clientHeight } = container;
-		canvas.width = clientWidth;
-		canvas.height = clientHeight;
+		canvas.width = clientWidth * ratio;
+		canvas.height = clientHeight * ratio;
+		context.scale(ratio, ratio);
 
-		setSize({ width: clientWidth, height: clientHeight });
+		context.putImageData(prevImage, 0, 0);
 
-		context.drawImage(inMemCanvas, 0, 0);
 	}, [canvasRef, containerRef]);
 
 	useEffect(() => {
@@ -39,6 +32,4 @@ export const useCanvasResize = (
 			window.removeEventListener("resize", resizeHandler);
 		};
 	}, [resizeHandler]);
-
-	return size;
 };

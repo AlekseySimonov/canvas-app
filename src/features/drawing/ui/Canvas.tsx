@@ -9,13 +9,11 @@ export const Canvas: React.FC<{ options: DrawingOptions }> = ({ options }) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useCanvasDraw(canvasRef, options);
-	const size = useCanvasResize(canvasRef, containerRef);
+	useCanvasResize(canvasRef, containerRef);
 
 	return (
 		<div className={styles.canvas} ref={containerRef}>
 			<canvas ref={canvasRef}
-				width={size.width}
-				height={size.height}
 				className={styles.canvas_draw}
 			>
 				Your browser does not support canvas
